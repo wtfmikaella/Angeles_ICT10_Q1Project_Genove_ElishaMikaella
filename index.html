@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt Generator - I&M Floral Studio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+    <h2>I&M Floral Studio</h2>
+    <div>
+        <a href="sku.html">SKU Generator</a>
+        <a href="index.html" class="active">Receipt Generator</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="header">
+        <div class="flower">✿</div>
+        <h1>I&M Floral Studio</h1>
+        <p>Flowers made with love ♡</p>
+    </div>
+
+    <div class="content">
+
+        <h2>Our Flowers</h2>
+        <p class="subtitle">Choose your favorite blooms</p>
+
+        <div class="menu-item">
+            <input type="checkbox" value="120" data-name="Hibiscus">
+            <span>🌺 Hibiscus</span>
+            <b>₱120</b>
+        </div>
+
+        <div class="menu-item">
+            <input type="checkbox" value="180" data-name="Lilies">
+            <span>🤍 Lilies</span>
+            <b>₱180</b>
+        </div>
+
+        <div class="menu-item">
+            <input type="checkbox" value="250" data-name="Peonies">
+            <span>🌸 Peonies</span>
+            <b>₱250</b>
+        </div>
+
+        <div class="menu-item best">
+            <input type="checkbox" value="200" data-name="Classic Roses">
+            <div class="flower-name">
+                <span>🌹 Classic Roses</span>
+                <small>BEST SELLER</small>
+            </div>
+            <b>₱200</b>
+        </div>
+
+        <div class="menu-item">
+            <input type="checkbox" value="220" data-name="Tulips">
+            <span>🌷 Tulips</span>
+            <b>₱220</b>
+        </div>
+
+        <button onclick="createOrder()">
+            Create Order
+        </button>
+
+        <div id="receipt" class="result">
+            Your order summary will appear here.
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    I&M Floral Studio ♡
+</footer>
+
+<script>
+function createOrder() {
+    var items = document.querySelectorAll('input[type="checkbox"]:checked');
+    var receipt = document.getElementById("receipt");
+
+    if (items.length === 0) {
+        receipt.innerHTML = "<p style='color:#c8798a;'>Please select at least one flower to create an order.</p>";
+        return;
+    }
+
+    var total = 0;
+    var order = "<h3>Order Summary</h3>";
+
+    items.forEach(function(item) {
+        var price = Number(item.value);
+        total += price;
+        order += "<p style='display:flex; justify-content:space-between; max-width:300px; margin:8px auto;'>" +
+            "<span>• " + item.dataset.name + "</span>" +
+            "<span>₱" + price + "</span></p>";
+    });
+
+    order += "<hr style='border:0; border-top:1px dashed #edc1ca; margin:15px auto; max-width:300px;'>";
+    order += "<h3 style='color:#58715c;'>Total: ₱" + total + "</h3>";
+
+    receipt.innerHTML = order;
+}
+</script>
+
+</body>
+</html>

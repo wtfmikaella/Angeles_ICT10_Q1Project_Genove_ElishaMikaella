@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKU Generator - I&M Floral Studio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+    <h2>I&M Floral Studio</h2>
+    <div>
+        <a href="sku.html" class="active">SKU Generator</a>
+        <a href="index.html">Receipt Generator</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="header">
+        <div class="flower">✿</div>
+        <h1>SKU Generator</h1>
+        <p>Keep your flowers organized</p>
+    </div>
+
+    <div class="content">
+
+        <label>🌿 Category</label>
+        <select id="category">
+            <option value="FL">Fresh Flowers (FL)</option>
+            <option value="BQ">Bouquets (BQ)</option>
+            <option value="AC">Accessories (AC)</option>
+        </select>
+
+        <label>🌷 Flower Name</label>
+        <select id="product">
+            <option value="Hibiscus">Hibiscus</option>
+            <option value="Lilies">Lilies</option>
+            <option value="Peonies">Peonies</option>
+            <option value="Roses">Roses (Classic & Best Seller)</option>
+            <option value="Tulips">Tulips</option>
+        </select>
+
+        <label>📦 Stock Quantity</label>
+        <input type="number" id="stock" placeholder="e.g. 50" min="1">
+
+        <button onclick="generateSKU()">
+            Generate SKU
+        </button>
+
+        <div id="skuResult" class="result">
+            Your generated SKU will appear here.
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    I&M Floral Studio ♡
+</footer>
+
+<script>
+function generateSKU() {
+    var category = document.getElementById("category").value;
+    var product = document.getElementById("product").value;
+    var stock = document.getElementById("stock").value;
+    var result = document.getElementById("skuResult");
+
+    if (stock === "" || Number(stock) < 0) {
+        result.innerHTML = "<p style='color:#c8798a;'>Please enter a valid stock quantity.</p>";
+        return;
+    }
+    var productCode = product
+        .replace(/[^A-Za-z]/g, "")
+        .toUpperCase()
+        .substring(0, 3);
+
+    var quantityCode = String(stock)
+        .padStart(3, "0")
+        .substring(0, 3);
+
+    var sku = category + productCode + quantityCode;
+
+    result.innerHTML =
+        "<h3>Your Generated SKU</h3>" +
+        "<div class='sku-code'>" + sku + "</div>" +
+        "<p><strong>Category:</strong> " + category + "</p>" +
+        "<p><strong>Flower:</strong> " + product + "</p>" +
+        "<p><strong>Stock Quantity:</strong> " + stock + "</p>";
+}
+</script>
+
+</body>
+</html>
